@@ -15,9 +15,6 @@ public class ParserVehicleFromFile {
     private List<Rent> rents = new ArrayList<>();
     @AutoWired
     private TechnicalSpecialist technicalSpecialist;
-    private final String VEHICLE_TYPES_PATH = "src/main/java/application.csvfiles/types.csv";
-    private final String VEHICLES_PATH = "src/main/java/application.csvfiles/vehicles.csv";
-    private final String RENTS_PATH = "src/main/java/application.csvfiles/rents.csv";
 
     public ParserVehicleFromFile() {
 
@@ -25,21 +22,24 @@ public class ParserVehicleFromFile {
 
     public List<VehicleType> fillVehicleTypes(List<VehicleType> vehicleTypes) {
         VehicleTypesLoader loader = new VehicleTypesLoader();
-        vehicleTypes.addAll(loader.load(VEHICLE_TYPES_PATH));
+        String VehicleTypesPath = "src/main/java/application/csvfiles/types.csv";
+        vehicleTypes.addAll(loader.load(VehicleTypesPath));
         this.vehicleTypes = vehicleTypes;
         return vehicleTypes;
     }
 
     public List<Rent> fillRents(List<Rent> rents) {
         RentsLoader loader = new RentsLoader();
-        rents.addAll(loader.load(RENTS_PATH));
+        String rentsPath = "src/main/java/application/csvfiles/rents.csv";
+        rents.addAll(loader.load(rentsPath));
         this.rents = rents;
         return rents;
     }
 
     public List<Vehicle> fillVehicles(List<Vehicle> vehicles) {
         VehicleLoader loader = new VehicleLoader(rents, vehicleTypes);
-        vehicles.addAll(loader.load(VEHICLES_PATH));
+        String vehiclesPath = "src/main/java/application/csvfiles/vehicles.csv";
+        vehicles.addAll(loader.load(vehiclesPath));
         this.vehicles = vehicles;
         return vehicles;
     }

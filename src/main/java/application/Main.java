@@ -12,9 +12,9 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         Map<Class<?>, Class<?>> implementations = new HashMap<>();
-        implementations.put(ObjectConfigurator.class, AutowiredObjectConfigurator.class);
+        implementations.put(AutowiredObjectConfigurator.class, ObjectConfigurator.class);
 
-        ApplicationContext context = new ApplicationContext("java.application", implementations);
+        ApplicationContext context = new ApplicationContext("application.infrastructure.configurators.impl", implementations);
         VehicleCollection vehicles = context.getObject(VehicleCollection.class);
         Workroom workroom = context.getObject(Workroom.class);
         workroom.checkAllVehicle(vehicles.getVehicles());

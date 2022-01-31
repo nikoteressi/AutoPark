@@ -7,12 +7,12 @@ import java.util.List;
 
 public class Workroom {
     @AutoWired
-    private MechanicService mechanic = new MechanicService();
+    private MechanicService mechanic;
 
     public Workroom() {
     }
 
-    public MechanicService getMechanic() {
+    public Fixer getMechanic() {
         return mechanic;
     }
 
@@ -22,16 +22,15 @@ public class Workroom {
 
     public void checkAllVehicle(List<Vehicle> vehicles) {
         System.out.println("Broken vehicles: ");
-        vehicles.stream().forEach(e -> mechanic.detectBreaking(e));
-        mechanic.repair(vehicles.get(4));
+//        vehicles.stream().forEach(e -> mechanic.detectBreaking(e));
         for (Vehicle v : vehicles) {
-            if (mechanic.getParser().checkVehicle(v)) {
+            if (mechanic.isBroken(v)) {
                 System.out.println(v);
             }
         }
         System.out.println("Good vehicles: ");
         for (Vehicle v : vehicles) {
-            if (!mechanic.getParser().checkVehicle(v)) {
+            if (!mechanic.isBroken(v)) {
                 System.out.println(v);
             }
         }

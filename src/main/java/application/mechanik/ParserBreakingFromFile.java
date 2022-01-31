@@ -11,15 +11,28 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class ParserBreakingFromFile {
-    private final String ORDERS_PATH = "src/main/java/application.csvfiles/orders.csv";
+    private final String ORDERS_PATH = "src/main/java/application/csvfiles/orders.csv";
 
     public void writeBreakings(Map<String, Integer> breakings, Vehicle vehicle) {
-
+        try {
+            FileWriter writer = new FileWriter("src/main/java/application/csvfiles/orders.csv", true);
+            StringBuilder details = new StringBuilder();
+            details.append(vehicle.getId());
+            for (String key : breakings.keySet()) {
+                details.append(",").append(key).append(",").append(breakings.get(key));
+            }
+            details.append("\n");
+            writer.write(details.toString());
+            writer.flush();
+            vehicle.setBrokenParts(details.substring(2, details.length()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clearBreackings(List<String> breakings, Vehicle vehicle) {
         try {
-            File file = new File("src/main/java/application.csvfiles/orders.csv");
+            File file = new File(ORDERS_PATH);
             FileWriter writer = new FileWriter(file, false);
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
@@ -40,7 +53,7 @@ public class ParserBreakingFromFile {
     public boolean checkVehicle(Vehicle vehicle) {
         int id = vehicle.getId();
         try {
-            File file = new File("src/main/java/application.csvfiles/orders.csv");
+            File file = new File(ORDERS_PATH);
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String str = scanner.nextLine();

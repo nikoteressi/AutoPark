@@ -1,15 +1,14 @@
 package application.vehiclesmodules;
 
 import application.engine.AbstractEngine;
-
 import java.time.LocalDate;
 
 public final class TechnicalSpecialist {
+    public static final int LOWER_LIMIT_MANUFACTURE_YEAR = 1886;
 
     public TechnicalSpecialist() {
     }
 
-    public static final int LOWER_LIMIT_MANUFACTURE_YEAR = 1886;
 
     public static boolean validateEngineType(AbstractEngine engine)  {
         String[] items = engine.toString().split(", ");

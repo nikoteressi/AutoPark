@@ -25,7 +25,7 @@ public class Vehicle implements Comparable<Vehicle> {
     private boolean isBroken = false;
     private boolean isWashed = false;
     private boolean garage = false;
-    private boolean rent = false;
+    //private boolean rent = false;
 
     public Vehicle() {
     }
@@ -49,6 +49,7 @@ public class Vehicle implements Comparable<Vehicle> {
     public void setSumOfBrokenParts(int sumOfBrokenParts) {
         this.sumOfBrokenParts = sumOfBrokenParts;
     }
+
     public String getBrokenParts() {
         return brokenParts;
     }
@@ -60,15 +61,13 @@ public class Vehicle implements Comparable<Vehicle> {
             String brokenParts = scanner.nextLine();
             String[] tokens = brokenParts.split(",");
 
-                for (int i = 1; i < tokens.length; i += 2) {
-                    if (Integer.parseInt(tokens[i]) != 0) {
-                        isBroken = true;
-                        this.brokenParts = brokenParts;
-                    }
+            for (int i = 1; i < tokens.length; i += 2) {
+                if (Integer.parseInt(tokens[i]) != 0) {
+                    isBroken = true;
+                    this.brokenParts = brokenParts;
                 }
+            }
         }
-
-        this.brokenParts = brokenParts;
     }
 
     public boolean isBroken() {
@@ -189,10 +188,7 @@ public class Vehicle implements Comparable<Vehicle> {
         this.color = color;
     }
 
-//    public double getTankCapacity() {
-//        return tankCapacity;
-//    }
-    public void  rentVehicle(int days) {
+    public void rentVehicle(int days) {
         if (isBroken) {
             try {
                 throw new DefectVehicleException();

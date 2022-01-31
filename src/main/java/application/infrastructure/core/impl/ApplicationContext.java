@@ -23,13 +23,12 @@ public class ApplicationContext implements Context {
     @Override
     public <T> T getObject(Class<T> type) {
         T object;
-        if (cache.get(type) == null) {
+        if (!cache.contains(type)) {
             if (type.isInterface()) {
-                if (config.getImplementation(type) == null) {
-                    object = factory.createObject(config.getImplementation(type));
-                }
+                object = factory.createObject(config.getImplementation(type));
+            } else {
+                object = factory.createObject(type);
             }
-            object = factory.createObject(type);
             cache.put(type, object);
             return object;
         }

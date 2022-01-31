@@ -13,7 +13,7 @@ public class VehicleCollection implements Iterable<Vehicle> {
     private static List<Rent> rents = new ArrayList<>();
     private List<Vehicle> vehicles = new ArrayList<>();
     @AutoWired
-    private ParserVehicleFromFile parser = new ParserVehicleFromFile();
+    private ParserVehicleFromFile parser;
 
     public VehicleCollection() {
     }
