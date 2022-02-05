@@ -13,8 +13,8 @@ import application.vehiclesmodules.VehicleType;
 import java.util.List;
 
 public class VehicleCreator implements Creator<Vehicle>{
-    private final List<Rent> rents;
-    private final List<VehicleType> types;
+    private List<Rent> rents;
+    private List<VehicleType> types;
 
     public VehicleCreator(List<Rent> rents, List<VehicleType> types) {
         this.rents = rents;

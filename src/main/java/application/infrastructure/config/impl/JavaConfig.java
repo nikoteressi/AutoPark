@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Set;
 
 @AllArgsConstructor
-@SuppressWarnings("unchecked")
 public class JavaConfig implements Config {
     private final Scanner scanner;
     private  final Map<Class<?>, Class<?>> interfaceToImplementation;

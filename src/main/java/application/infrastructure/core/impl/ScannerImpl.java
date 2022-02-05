@@ -6,7 +6,7 @@ import org.reflections.Reflections;
 import java.util.Set;
 
 public class ScannerImpl implements Scanner {
-    private final Reflections reflections;
+    private Reflections reflections;
 
     public ScannerImpl(String packageName) {
         reflections = new Reflections(packageName);

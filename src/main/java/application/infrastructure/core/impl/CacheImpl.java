@@ -4,8 +4,9 @@ import application.infrastructure.core.Cache;
 
 import java.util.*;
 
+@SuppressWarnings("unchecked")
 public class CacheImpl implements Cache {
-    private final Map<String, Object> cache;
+    private Map<String, Object> cache;
 
     public CacheImpl() {
         cache = new HashMap<>();
@@ -13,17 +14,16 @@ public class CacheImpl implements Cache {
 
     @Override
     public boolean contains(Class<?> clazz) {
-        return cache.containsKey(clazz.getName());
+        return cache.containsKey(clazz.getSimpleName());
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public <T> T get(Class<T> tClass) {
-        return contains(tClass) ? (T) cache.get(tClass.getName()) : null;
+        return (T) cache.get(tClass.getSimpleName());
     }
 
     @Override
     public <T> void put(Class<?> clazz, T value) {
-        cache.put(clazz.getName(), value);
+        cache.put(clazz.getSimpleName(), value);
     }
 }

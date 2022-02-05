@@ -25,7 +25,8 @@ public class Vehicle implements Comparable<Vehicle> {
     private boolean isBroken = false;
     private boolean isWashed = false;
     private boolean garage = false;
-    //private boolean rent = false;
+    private boolean rent = false;
+    private double tankCapacity;
 
     public Vehicle() {
     }
@@ -49,25 +50,19 @@ public class Vehicle implements Comparable<Vehicle> {
     public void setSumOfBrokenParts(int sumOfBrokenParts) {
         this.sumOfBrokenParts = sumOfBrokenParts;
     }
-
     public String getBrokenParts() {
         return brokenParts;
     }
 
-    public void setBrokenParts(String brokenPartsPath) {
-        File file = new File(brokenPartsPath);
-        Scanner scanner = new Scanner(brokenPartsPath);
-        while (scanner.hasNext()) {
-            String brokenParts = scanner.nextLine();
-            String[] tokens = brokenParts.split(",");
+    public void setBrokenParts(String brokenParts) {
 
-            for (int i = 1; i < tokens.length; i += 2) {
-                if (Integer.parseInt(tokens[i]) != 0) {
-                    isBroken = true;
-                    this.brokenParts = brokenParts;
+            String[] tokens = brokenParts.split(",");
+                for (int i = 1; i < tokens.length; i += 2) {
+                    if (Integer.parseInt(tokens[i]) != 0) {
+                        isBroken = true;
+                    }
                 }
-            }
-        }
+        this.brokenParts = brokenParts;
     }
 
     public boolean isBroken() {
@@ -85,7 +80,6 @@ public class Vehicle implements Comparable<Vehicle> {
     public void setGarage(boolean garage) {
         this.garage = garage;
     }
-//    private double tankCapacity;
 
     public boolean isWashed() {
         return isWashed;
@@ -188,7 +182,10 @@ public class Vehicle implements Comparable<Vehicle> {
         this.color = color;
     }
 
-    public void rentVehicle(int days) {
+    public double getTankCapacity() {
+        return tankCapacity;
+    }
+    public void  rentVehicle(int days) {
         if (isBroken) {
             try {
                 throw new DefectVehicleException();

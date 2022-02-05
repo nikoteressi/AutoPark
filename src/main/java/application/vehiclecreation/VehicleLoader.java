@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class VehicleLoader implements Loader<Vehicle> {
-   private final List<Rent> rents;
-    private final List<VehicleType> types;
+   private List<Rent> rents;
+    private List<VehicleType> types;
 
     public VehicleLoader(List<Rent> rents, List<VehicleType> types) {
         this.rents = rents;
@@ -29,9 +29,7 @@ public class VehicleLoader implements Loader<Vehicle> {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        while (true) {
-            assert scanner != null;
-            if (!scanner.hasNext()) break;
+        while (scanner.hasNext()) {
             try {
                 vehicle.add(new VehicleCreator(rents, types).create(scanner.nextLine()));
             } catch (NoVehicleException e) {

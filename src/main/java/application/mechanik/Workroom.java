@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Workroom {
     @AutoWired
-    private MechanicService mechanic;
+    private Fixer mechanic;
 
     public Workroom() {
     }
@@ -21,16 +21,18 @@ public class Workroom {
     }
 
     public void checkAllVehicle(List<Vehicle> vehicles) {
-        System.out.println("Broken vehicles: ");
-//        vehicles.stream().forEach(e -> mechanic.detectBreaking(e));
         for (Vehicle v : vehicles) {
-            if (mechanic.isBroken(v)) {
+            mechanic.detectBreaking(v);
+        }
+        System.out.println("Broken vehicles: ");
+        for (Vehicle v : vehicles) {
+            if (mechanic.getParser().checkVehicle(v)) {
                 System.out.println(v);
             }
         }
         System.out.println("Good vehicles: ");
         for (Vehicle v : vehicles) {
-            if (!mechanic.isBroken(v)) {
+            if (!mechanic.getParser().checkVehicle(v)) {
                 System.out.println(v);
             }
         }

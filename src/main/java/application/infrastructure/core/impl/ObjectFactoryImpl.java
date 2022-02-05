@@ -17,13 +17,13 @@ public class ObjectFactoryImpl implements ObjectFactory {
     @SneakyThrows
     public ObjectFactoryImpl(Context context) {
         this.context = context;
-        Set<Class<? extends ObjectConfigurator>> sets = this.context.getConfig().getScanner().getSubTypesOF(ObjectConfigurator.class);
-        for (Class<?> o : sets) {
-            objectConfigurators.add((ObjectConfigurator) o.getDeclaredConstructor().newInstance());
+        Set<Class<? extends ObjectConfigurator>> sets = context.getConfig().getScanner().getSubTypesOF(ObjectConfigurator.class);
+        for (Class<?> c: sets ) {
+            objectConfigurators.add((ObjectConfigurator) c.newInstance());
         }
     }
     private  <T> T create(Class<T> implementation) throws  Exception{
-        return implementation.getDeclaredConstructor().newInstance();
+        return implementation.newInstance();
     }
     private <T> void configure (T object) {
         for (ObjectConfigurator o : objectConfigurators) {
