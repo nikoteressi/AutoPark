@@ -1,5 +1,6 @@
 package application.infrastructure.configurators.impl;
 
+import application.infrastructure.configurators.impl.configurators.ObjectConfigurator;
 import application.infrastructure.core.Context;
 import application.infrastructure.core.annotations.Proprety;
 import lombok.SneakyThrows;
@@ -7,16 +8,14 @@ import lombok.SneakyThrows;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class PropertyObjectConfigurator implements ObjectConfigurator{
+public class PropertyObjectConfigurator implements ObjectConfigurator {
     private final Map<String, String> properties;
 
     @SneakyThrows
@@ -41,12 +40,11 @@ public class PropertyObjectConfigurator implements ObjectConfigurator{
         for (Field f : fields) {
             f.setAccessible(true);
             if (f.isAnnotationPresent(Proprety.class)) {
-                Annotation annotation = f.getAnnotation(Proprety.class);
-                Proprety prop = (Proprety) annotation;
-                if (prop.value().equals("")) {
+                Proprety annotation = f.getAnnotation(Proprety.class);
+                if (annotation.value().equals("")) {
                     f.set(object, object.getClass().getSimpleName());
                 } else {
-                    f.set(object, properties.get(prop.value()));
+                    f.set(object, properties.get(annotation.value()));
                 }
             }
         }
