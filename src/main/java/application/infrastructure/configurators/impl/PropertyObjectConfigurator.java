@@ -8,6 +8,7 @@ import lombok.SneakyThrows;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.HashMap;
@@ -40,11 +41,12 @@ public class PropertyObjectConfigurator implements ObjectConfigurator {
         for (Field f : fields) {
             f.setAccessible(true);
             if (f.isAnnotationPresent(Proprety.class)) {
-                Proprety annotation = f.getAnnotation(Proprety.class);
-                if (annotation.value().equals("")) {
+                Annotation annotation = f.getAnnotation(Proprety.class);
+                Proprety prop = (Proprety) annotation;
+                if (prop.value().equals("")) {
                     f.set(object, object.getClass().getSimpleName());
                 } else {
-                    f.set(object, properties.get(annotation.value()));
+                    f.set(object, properties.get(prop.value()));
                 }
             }
         }
