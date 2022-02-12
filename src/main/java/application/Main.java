@@ -3,21 +3,38 @@ package application;
 import application.infrastructure.configurators.impl.AutowiredObjectConfigurator;
 import application.infrastructure.configurators.impl.ObjectConfigurator;
 import application.infrastructure.core.impl.ApplicationContext;
-import application.mechanik.Workroom;
+import application.mechanik.*;
+import application.vehiclecreation.ParserVehicleFromDB;
+import application.vehiclecreation.ParserVehicleInterface;
 import application.vehiclecreation.VehicleCollection;
 import application.vehiclesmodules.Vehicle;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Fleet", "postgres", "");
+            System.out.println("The DB name is: " + connection.getMetaData().getDatabaseProductName());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         Map<Class<?>, Class<?>> implementations = new HashMap<>();
-        implementations.put(AutowiredObjectConfigurator.class, ObjectConfigurator.class);
+        implementations.put(ObjectConfigurator.class, AutowiredObjectConfigurator.class);
+        implementations.put(ParserVehicleInterface.class, ParserVehicleFromDB.class);
+        implementations.put(ParserBreakingsInterface.class, ParserBreakingFromDB.class);
+        implementations.put(Fixer.class, MechanicService.class);
 
-        ApplicationContext context = new ApplicationContext("application.infrastructure.configurators.impl", implementations);
+        ApplicationContext context = new ApplicationContext("application", implementations);
         VehicleCollection vehicles = context.getObject(VehicleCollection.class);
+        vehicles.getVehicles().forEach(v -> System.out.println(v.getCalcTaxPerMonth()));
         Workroom workroom = context.getObject(Workroom.class);
         workroom.checkAllVehicle(vehicles.getVehicles());
+
     }
 
     static class Util {

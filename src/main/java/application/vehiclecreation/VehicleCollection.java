@@ -13,7 +13,7 @@ public class VehicleCollection implements Iterable<Vehicle> {
     private static List<Rent> rents = new ArrayList<>();
     private List<Vehicle> vehicles = new ArrayList<>();
     @AutoWired
-    private ParserVehicleFromFile parser;
+    private ParserVehicleInterface parser;
 
     public VehicleCollection() {
     }
@@ -42,7 +42,7 @@ public class VehicleCollection implements Iterable<Vehicle> {
         this.vehicles = vehicles;
     }
 
-    public ParserVehicleFromFile getParser() {
+    public ParserVehicleInterface getParser() {
         return parser;
     }
 
@@ -52,9 +52,9 @@ public class VehicleCollection implements Iterable<Vehicle> {
 
     @InitMethod
     public void init() {
-        parser.fillVehicleTypes(vehicleTypes);
-        parser.fillRents(rents);
-        parser.fillVehicles(vehicles);
+       vehicleTypes = parser.fillVehicleTypes();
+       rents = parser.fillRents();
+       vehicles = parser.fillVehicles();
     }
 
     public void insert(int index, Vehicle v) {

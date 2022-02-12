@@ -3,6 +3,7 @@ package application.vehiclesmodules;
 public class Rent {
     private String rentDate;
     private double rentCost;
+    private int vehicleId;
 
     public Rent(String rentDate, double rentCost) {
         this.rentDate = rentDate;
