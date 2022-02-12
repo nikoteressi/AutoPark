@@ -1,7 +1,7 @@
 package application;
 
 import application.infrastructure.configurators.impl.AutowiredObjectConfigurator;
-import application.infrastructure.configurators.impl.ObjectConfigurator;
+import application.infrastructure.configurators.impl.configurators.ObjectConfigurator;
 import application.infrastructure.core.impl.ApplicationContext;
 import application.mechanik.*;
 import application.vehiclecreation.ParserVehicleFromDB;
@@ -16,13 +16,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    public static void main(String[] args) {
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Fleet", "postgres", "");
-            System.out.println("The DB name is: " + connection.getMetaData().getDatabaseProductName());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public static void main(String[] args) throws InterruptedException {
+
         Map<Class<?>, Class<?>> implementations = new HashMap<>();
         implementations.put(ObjectConfigurator.class, AutowiredObjectConfigurator.class);
         implementations.put(ParserVehicleInterface.class, ParserVehicleFromDB.class);
@@ -30,10 +25,9 @@ public class Main {
         implementations.put(Fixer.class, MechanicService.class);
 
         ApplicationContext context = new ApplicationContext("application", implementations);
-        VehicleCollection vehicles = context.getObject(VehicleCollection.class);
-        vehicles.getVehicles().forEach(v -> System.out.println(v.getCalcTaxPerMonth()));
-        Workroom workroom = context.getObject(Workroom.class);
-        workroom.checkAllVehicle(vehicles.getVehicles());
+        CheckVehicleFromDBThread checkVehicleFromDBThread = context.getObject(CheckVehicleFromDBThread.class);
+        checkVehicleFromDBThread.checkVehicle(context);
+        Thread.sleep(120000);
 
     }
 
