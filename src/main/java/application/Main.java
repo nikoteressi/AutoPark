@@ -7,6 +7,10 @@ import application.mechanik.*;
 import application.vehiclecreation.ParserVehicleFromDB;
 import application.vehiclecreation.ParserVehicleInterface;
 import application.vehiclesmodules.Vehicle;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 

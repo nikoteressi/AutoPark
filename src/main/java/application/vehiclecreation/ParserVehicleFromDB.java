@@ -4,12 +4,14 @@ import application.engine.AbstractEngine;
 import application.engine.DieselEngine;
 import application.engine.ElectricalEngine;
 import application.engine.GasolineEngine;
+import application.entity.Orders;
 import application.entity.Rents;
 import application.entity.Types;
 import application.entity.Vehicles;
 import application.exceptions.NoVehicleException;
 import application.infrastructure.core.annotations.AutoWired;
 import application.infrastructure.orm.EntityManager;
+import application.service.OrdersService;
 import application.service.RentsService;
 import application.service.TypesService;
 import application.service.VehicleService;
@@ -29,6 +31,8 @@ public class ParserVehicleFromDB implements ParserVehicleInterface {
     private VehicleService vehicleService;
     @AutoWired
     private RentsService rentsService;
+    @AutoWired
+    private OrdersService ordersService;
     @AutoWired
     EntityManager entityManager;
 
@@ -59,6 +63,10 @@ public class ParserVehicleFromDB implements ParserVehicleInterface {
 
         }
         return vehicle;
+    }
+
+    public List<Orders> fillOrders() {
+        return new ArrayList<>(ordersService.getAll());
     }
     @SneakyThrows
     public List<Vehicle> createVehicle() {
