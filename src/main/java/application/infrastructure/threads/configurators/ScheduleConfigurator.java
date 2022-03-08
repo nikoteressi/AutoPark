@@ -12,11 +12,10 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.concurrent.*;
 
-@SuppressWarnings("unchecked")
 public class ScheduleConfigurator implements ProxyConfigurator {
     @Override
     @SneakyThrows
-    public <T> T makeProxy(T object, Class<T> implementation, Context context) {
+    public <T> T makeProxy(T object, Class<T> implemenation, Context context) {
         Method[] methods = object.getClass().getDeclaredMethods();
         for (Method m : methods) {
             m.setAccessible(true);
@@ -24,7 +23,7 @@ public class ScheduleConfigurator implements ProxyConfigurator {
                     m.getModifiers() != Modifier.PUBLIC) throw new Exception("Invalid method signature");
             if (m.isAnnotationPresent(Schedule.class) && m.getReturnType().getSimpleName().equalsIgnoreCase("void") &&
                     m.getModifiers() == Modifier.PUBLIC) {
-                return (T) Enhancer.create(implementation, (MethodInterceptor) this::invoke);
+                return (T) Enhancer.create(implemenation, (MethodInterceptor) this::invoke);
             }
         }
         return object;

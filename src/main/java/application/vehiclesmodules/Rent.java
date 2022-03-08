@@ -10,6 +10,14 @@ public class Rent {
         this.rentCost = rentCost;
     }
 
+    public int getVehicleId() {
+        return vehicleId;
+    }
+
+    public void setVehicleId(int vehicleId) {
+        this.vehicleId = vehicleId;
+    }
+
     public Rent() {
     }
 

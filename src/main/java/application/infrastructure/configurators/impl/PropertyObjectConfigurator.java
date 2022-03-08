@@ -27,8 +27,7 @@ public class PropertyObjectConfigurator implements ObjectConfigurator {
         Iterator<String> iterator = lines.iterator();
         while (iterator.hasNext()) {
             String[] strings = iterator.next().split("=");
-            if (strings[0].equalsIgnoreCase("Password")) properties.put(strings[0], "");
-            else properties.put(strings[0], strings[1]);
+            properties.put(strings[0], strings[1]);
         }
     }
 

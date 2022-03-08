@@ -31,12 +31,12 @@ public class ObjectFactoryImpl implements ObjectFactory {
 
     private <T> T makeProxy(Class<T> implClass, T object) {
         for (ProxyConfigurator p : proxyConfigurators) {
-            object = p.makeProxy(object, implClass, context);
+            object = (T) p.makeProxy(object, implClass, context);
         }
         return object;
     }
     private  <T> T create(Class<T> implementation) throws  Exception{
-        return implementation.getDeclaredConstructor().newInstance();
+        return implementation.newInstance();
     }
     private <T> void configure (T object) {
         for (ObjectConfigurator o : objectConfigurators) {

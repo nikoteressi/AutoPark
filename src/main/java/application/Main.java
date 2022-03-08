@@ -6,7 +6,6 @@ import application.infrastructure.core.impl.ApplicationContext;
 import application.mechanik.*;
 import application.vehiclecreation.ParserVehicleFromDB;
 import application.vehiclecreation.ParserVehicleInterface;
-import application.vehiclecreation.VehicleCollection;
 import application.vehiclesmodules.Vehicle;
 
 import java.sql.Connection;

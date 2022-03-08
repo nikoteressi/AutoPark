@@ -32,4 +32,19 @@ public class ElectricalEngine extends AbstractEngine{
     public double getMaxKilometers() {
         return currentChargeLevel / electricityConsumptionPerHour;
     }
+
+    @Override
+    public String getEngineName() {
+        return getEngineTypeName();
+    }
+
+    @Override
+    public double getEngineTaxCoefficient() {
+        return 0;
+    }
+
+    @Override
+    public double getFuelPer100Km() {
+        return 0;
+    }
 }
